@@ -49,7 +49,7 @@ public class ResultadoTransformador extends AppCompatActivity {
 
         imagem = findViewById(R.id.imageView);
 
-        zcc = findViewById(R.id.Zcc);
+        zcc = findViewById(R.id.Np);
         req = findViewById(R.id.Req);
         xeq = findViewById(R.id.Xeq);
         rc = findViewById(R.id.Rc);
