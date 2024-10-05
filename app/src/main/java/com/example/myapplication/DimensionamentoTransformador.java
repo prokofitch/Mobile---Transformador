@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class DimensionamentoTransformador extends AppCompatActivity {
     private EditText textTensaoSecundaria;
     private EditText potenciaCarga;
 
+    private TextView avisos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,8 @@ public class DimensionamentoTransformador extends AppCompatActivity {
         textTensaoSecundaria = findViewById(R.id.textTensaoSecundaria);
         potenciaCarga = findViewById(R.id.potenciaCarga);
 
+        avisos = findViewById(R.id.avisos2);
+
         // Spinner Tipo de Circuito
         String[] tipoCircuito = new String[] {"60 Hz", "50 Hz", "Frequência do Transformador"};
         HintAdapter hintTipoCircuito =new HintAdapter(this,android.R.layout.simple_list_item_1, tipoCircuito);
@@ -44,16 +49,34 @@ public class DimensionamentoTransformador extends AppCompatActivity {
     }
 
     public void calcular(View view){
+        if (verificarTodosCampos()){
+            Intent telaDimensionamento = new Intent(this, ResultadoDimensionamento.class);
+            telaDimensionamento.putExtra("frequencia", spinnerFrequencia.getSelectedItem().toString());
+            telaDimensionamento.putExtra("tensaoPrimaria", textTensaoPrimaria.getText().toString());
+            telaDimensionamento.putExtra("tensaoSecundaria", textTensaoSecundaria.getText().toString());
+            telaDimensionamento.putExtra("potenciaCarga", potenciaCarga.getText().toString());
 
-        Intent telaDimensionamento = new Intent(this, ResultadoDimensionamento.class);
-        telaDimensionamento.putExtra("frequencia", spinnerFrequencia.getSelectedItem().toString());
-        telaDimensionamento.putExtra("tensaoPrimaria", textTensaoPrimaria.getText().toString());
-        telaDimensionamento.putExtra("tensaoSecundaria", textTensaoSecundaria.getText().toString());
-        telaDimensionamento.putExtra("potenciaCarga", potenciaCarga.getText().toString());
+            startActivity(telaDimensionamento);
+        }
 
-        startActivity(telaDimensionamento);
+    }
+    private boolean verificarEditText(EditText editText) {
+        return editText != null && !editText.getText().toString().trim().isEmpty();
+    }
 
+    private boolean verificarSpinner(Spinner spinner) {
+        return (spinner != null && spinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION) && spinner.getSelectedItemPosition() != spinner.getCount();
+    }
 
-
+    private boolean verificarTodosCampos() {
+        if (!verificarEditText(textTensaoPrimaria) || !verificarEditText(textTensaoSecundaria) || !verificarEditText(potenciaCarga)) {
+            avisos.setText("Algum campo está vazio.");
+            return false;
+        }
+        if (!verificarSpinner(spinnerFrequencia)) {
+            avisos.setText("Algum campo está vazio.");
+            return false;
+        }
+        return true;
     }
 }

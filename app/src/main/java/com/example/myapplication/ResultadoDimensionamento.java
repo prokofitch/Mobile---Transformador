@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,7 +11,36 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ResultadoDimensionamento extends AppCompatActivity {
 
-    private TextView Np;
+    private TextView textNp;
+    private TextView textNs;
+    private TextView textBitola1;
+    private TextView textBitola2;
+    private TextView textTipoLamina;
+    private TextView textQntDeLamina;
+
+    private TextView textAltura;
+    private TextView textLargura;
+    private TextView textComprimento;
+    private TextView textAreaFrontal;
+    private TextView textVolume;
+
+    private TextView textPesoNucleoFerro;
+    private TextView textPesoNucleoCobre;
+    private TextView textPesoTotal;
+
+    private TextView textFrequencia;
+    private TextView textTensaoPrimaria;
+    private TextView textTensaoSecundaria;
+    private TextView textCorrentePrimaria;
+    private TextView textCorrenteSecundaria;
+    private TextView textPotenciaPrimaria;
+    private TextView textPotenciaSecundaria;
+    private TextView textSecaoFio1;
+    private TextView textSecaoFio2;
+    private TextView textSecaoMagnetica;
+    private TextView textSecaoGeometrica;
+    private TextView textRelacaoEspiras;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +52,36 @@ public class ResultadoDimensionamento extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Np = findViewById(R.id.Np);
+
+        textNp = findViewById(R.id.Np);
+        textNs = findViewById(R.id.Ns);
+        textBitola1 = findViewById(R.id.bitola1);
+        textBitola2 = findViewById(R.id.bitola2);
+        textTipoLamina = findViewById(R.id.tipoLamina);
+        textQntDeLamina = findViewById(R.id.qntLamina);
+
+        textAltura = findViewById(R.id.altura);
+        textLargura = findViewById(R.id.largura);
+        textComprimento = findViewById(R.id.comprimento);
+        textAreaFrontal = findViewById(R.id.areaFrontal);
+        textVolume = findViewById(R.id.volume);
+
+        textPesoNucleoFerro = findViewById(R.id.pesoNucleoFerro);
+        textPesoNucleoCobre = findViewById(R.id.pesoNucleoCobre);
+        textPesoTotal = findViewById(R.id.pesoTotal);
+
+        textFrequencia = findViewById(R.id.frequencia);
+        textTensaoPrimaria = findViewById(R.id.tensaoPrimaria);
+        textTensaoSecundaria = findViewById(R.id.tensaoSecundaria);
+        textCorrentePrimaria = findViewById(R.id.correntePrimaria);
+        textCorrenteSecundaria = findViewById(R.id.correnteSecundaria);
+        textPotenciaPrimaria = findViewById(R.id.potenciaPrimaria);
+        textPotenciaSecundaria = findViewById(R.id.potenciaSecundaria);
+        textSecaoFio1 = findViewById(R.id.secaoFio1);
+        textSecaoFio2 = findViewById(R.id.secaoFio2);
+        textSecaoMagnetica = findViewById(R.id.secaoMagnetica);
+        textSecaoGeometrica = findViewById(R.id.secaoGeometrica);
+        textRelacaoEspiras = findViewById(R.id.relacaoEspiras);
 
         Bundle dados = getIntent().getExtras();
         assert dados != null;
@@ -43,7 +100,7 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         if (frequenciaString.equals("50 Hz")){
             frequencia = 50.0;
         } else {
-            frequencia = 60;
+            frequencia = 60.0;
         }
 
         double potenciaPrimaria = potenciaSecundaria * 1.1;
@@ -112,7 +169,36 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         double acesita = 0.035;
         double qntLaminas = Math.round((b*0.9)/acesita);
 
-        Np.setText(String.format("Quantidade de laminas: %s", qntLaminas));
+        textNp.setText(String.format("Np: %s espiras", Math.round(n1)));
+        textNs.setText(String.format("Ns: %s espiras", Math.round(n2)));
+        textBitola1.setText(String.format("Bitola Primário: %s", secaoFio1Bitola));
+        textBitola2.setText(String.format("Bitola Secundário: %s", secaoFio2Bitola));
+        textTipoLamina.setText(String.format("Tipo de Lâmina: %s", tipoLamina));
+        textQntDeLamina.setText(String.format("Quantidade de Lâminas: %s", qntLaminas));
+
+        textAltura.setText(String.format("Altura: %.2f cm", altura));
+        textLargura.setText(String.format("Largura: %.2f cm", largura));
+        textComprimento.setText(String.format("Comprimento: %.2f cm", comprimento));
+        textAreaFrontal.setText(String.format("Área Frontal: %.2f cm²", areaFrontal));
+        textVolume.setText(String.format("Volume: %.2f cm³", volume));
+
+        textPesoNucleoFerro.setText(String.format("Peso do Núcleo (Ferro): %.2f kg", pesoNucleoFerro));
+        textPesoNucleoCobre.setText(String.format("Peso do Núcleo (Cobre): %.2f kg", pesoNucleoCobre));
+        textPesoTotal.setText(String.format("Peso Total: %.2f kg", pesoTotal));
+
+        textFrequencia.setText(String.format("Frequência: %.2f Hz", frequencia));
+        textTensaoPrimaria.setText(String.format("Tensão Primária: %.2f V", tensaoPrimaria));
+        textTensaoSecundaria.setText(String.format("Tensão Secundária: %.2f V", tensaoSecundaria));
+        textCorrentePrimaria.setText(String.format("Corrente Primária: %.2f A", correntePrimaria));
+        textCorrenteSecundaria.setText(String.format("Corrente Secundária: %.2f A", correnteSecundaria));
+        textPotenciaPrimaria.setText(String.format("Potência Primária: %.2f W", potenciaPrimaria));
+        textPotenciaSecundaria.setText(String.format("Potência Secundária: %.2f W", potenciaSecundaria));
+        textSecaoFio1.setText(String.format("Seção Fio 1: %.2f ", secaoFio1));
+        textSecaoFio2.setText(String.format("Seção Fio 2: %.2f ", secaoFio2));
+        textSecaoMagnetica.setText(String.format("Seção Magnética: %.2f ", secaoMagnetica));
+        textSecaoGeometrica.setText(String.format("Seção Geométrica: %.2f ", secaoGeometrica));
+        textRelacaoEspiras.setText(String.format("Relação de Espiras: %.2f ", relacaoEspiras));
+
     }
 
     private double calcularPesoNucleoCobre(double a, double b, double n1, double s1, double n2, double s2){

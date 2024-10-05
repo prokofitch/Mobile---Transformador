@@ -143,7 +143,7 @@ public class ParametrosTransformador extends AppCompatActivity {
     }
 
     private boolean verificarSpinner(Spinner spinner) {
-        return spinner != null && spinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION;
+        return (spinner != null && spinner.getSelectedItemPosition() != AdapterView.INVALID_POSITION) && spinner.getSelectedItemPosition() != spinner.getCount();
     }
 
     @SuppressLint("SetTextI18n")
