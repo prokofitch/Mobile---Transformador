@@ -9,10 +9,20 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="313dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/transformador" />
+
     <Button
         android:id="@+id/parametros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
         android:onClick="parametros"
         android:text="Parâmetros do Transformador" />
 
@@ -20,6 +30,7 @@
         android:id="@+id/dimensoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:onClick="dimensoes"
         android:text="Dimensões do Transformador" />
 </LinearLayout>

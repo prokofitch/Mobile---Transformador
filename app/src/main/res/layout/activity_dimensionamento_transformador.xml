@@ -29,7 +29,7 @@
 
     <EditText
         android:id="@+id/textTensaoPrimaria"
-        android:layout_width="338dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
@@ -44,7 +44,7 @@
 
     <EditText
         android:id="@+id/textTensaoSecundaria"
-        android:layout_width="339dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
@@ -59,7 +59,7 @@
 
     <EditText
         android:id="@+id/potenciaCarga"
-        android:layout_width="337dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
