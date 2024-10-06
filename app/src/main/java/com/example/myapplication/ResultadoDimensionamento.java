@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -40,7 +41,6 @@ public class ResultadoDimensionamento extends AppCompatActivity {
     private TextView textSecaoMagnetica;
     private TextView textSecaoGeometrica;
     private TextView textRelacaoEspiras;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         calcularParametros(frequencia, tensaoPrimaria, tensaoSecundaria, potenciaCarga);
     }
 
+    @SuppressLint("DefaultLocale")
     public void calcularParametros(String frequenciaString, double tensaoPrimaria, double tensaoSecundaria, double potenciaSecundaria){
 
         String tipoLamina;
@@ -121,7 +122,7 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         double secaoMagnetica = calcularSecaoMagnetica(tipoLamina, potenciaSecundaria, frequencia);
         double secaoGeometrica = secaoMagnetica * 1.1;
 
-        double a = 0.0;
+        double a;
         if (secaoGeometrica > 20) {
             a = 5.0;
         } else {
@@ -133,7 +134,7 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         double secaoMagneticaNucleo = a*b;
         double secaoGeometricaNucleo = secaoMagneticaNucleo/1.1;
 
-        double relacaoEspiras = 0.0;
+        double relacaoEspiras;
         if (frequencia == 50){
             relacaoEspiras = 40/secaoGeometricaNucleo;
         } else {
@@ -232,34 +233,34 @@ public class ResultadoDimensionamento extends AppCompatActivity {
         return 0.0;
     }
 
-    private boolean execucaoViavel(String tipoLamina, double n1, double s1, double n2, double s2, double a){
-        Double secaoJanela = 0.0;
-        if(tipoLamina.equals("Lâminas Padronizadas")){
-            double[] tamanhoAPadronizada = {1.5, 2, 2.5, 3, 3.5, 4, 5};
-            double[] secaoJanelaPadronizada = {168, 300, 468, 675, 900 ,1200 ,1880};
-            for (int i = 0; i < tamanhoAPadronizada.length; i++){
-                if (tamanhoAPadronizada[i] == a){
-                    secaoJanela = secaoJanelaPadronizada[i];
-                    break;
-                }
-            }
-        }
-        if(tipoLamina.equals("Lâminas Compridas")){
-            double[] tamanhoAComprida = {4, 5};
-            double[] secaoJanelaComprida = {2400, 3750};
-            for (int i = 0; i < tamanhoAComprida.length; i++){
-                if (tamanhoAComprida[i] == a){
-                    secaoJanela = secaoJanelaComprida[i];
-                    break;
-                }
-            }
-        }
-        if (secaoJanela/calcularSecaoCobre(n1, s1, n2, s2) > 3){
-            return true;
-        }
-
-        return false;
-    }
+//    private boolean execucaoViavel(String tipoLamina, double n1, double s1, double n2, double s2, double a){
+//        Double secaoJanela = 0.0;
+//        if(tipoLamina.equals("Lâminas Padronizadas")){
+//            double[] tamanhoAPadronizada = {1.5, 2, 2.5, 3, 3.5, 4, 5};
+//            double[] secaoJanelaPadronizada = {168, 300, 468, 675, 900 ,1200 ,1880};
+//            for (int i = 0; i < tamanhoAPadronizada.length; i++){
+//                if (tamanhoAPadronizada[i] == a){
+//                    secaoJanela = secaoJanelaPadronizada[i];
+//                    break;
+//                }
+//            }
+//        }
+//        if(tipoLamina.equals("Lâminas Compridas")){
+//            double[] tamanhoAComprida = {4, 5};
+//            double[] secaoJanelaComprida = {2400, 3750};
+//            for (int i = 0; i < tamanhoAComprida.length; i++){
+//                if (tamanhoAComprida[i] == a){
+//                    secaoJanela = secaoJanelaComprida[i];
+//                    break;
+//                }
+//            }
+//        }
+//        if (secaoJanela/calcularSecaoCobre(n1, s1, n2, s2) > 3){
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     private double calcularSecaoMagnetica(String tipoLamina, double potenciaSecundaria, double frequencia) {
         if(tipoLamina.equals("Lâminas Padronizadas")){

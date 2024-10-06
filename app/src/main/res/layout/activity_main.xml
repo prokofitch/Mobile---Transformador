@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="5dp"
         android:onClick="parametros"
         android:text="Parâmetros do Transformador" />
 
@@ -33,4 +32,11 @@
         android:layout_marginHorizontal="50dp"
         android:onClick="dimensoes"
         android:text="Dimensões do Transformador" />
+
+    <Button
+        android:id="@+id/curvaDeMagnetizacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:text="Curva de Magnetização" />
 </LinearLayout>

@@ -1,14 +1,8 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Intent telaDimensoes = new Intent(this, DimensionamentoTransformador.class);
         startActivity(telaDimensoes);
     }
+
 }
 
 
