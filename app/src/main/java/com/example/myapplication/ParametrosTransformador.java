@@ -162,6 +162,11 @@ public class ParametrosTransformador extends AppCompatActivity {
             return false;
         }
 
+        if (ladoEnsaioA.getSelectedItem().toString().equals(ladoEnsaioB.getSelectedItem().toString())){
+            avisos.setText("Os 2 Ensaios são de " + ladoEnsaioA.getSelectedItem().toString());
+            return false;
+        }
+
         return true;
     }
 

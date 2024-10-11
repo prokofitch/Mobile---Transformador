@@ -167,15 +167,15 @@ public class ResultadoTransformador extends AppCompatActivity {
         switch (tipoCircuito) {
             case "T - Circuito em T":
                 if (referencia.equals("Primário")) {
+                    Rp = Req / 2;
+                    Xp = Xeq / 2;
+                    Rs = Rp;
+                    Xs = Xp;
+                } else if (referencia.equals("Secundário")) {
                     Rp = Req / a2;
                     Xp = Xeq / a2;
-                    Rs = Req - Rp;
-                    Xs = Xeq - Xp;
-                } else if (referencia.equals("Secundário")) {
-                    Rp = Req * a2;
-                    Xp = Xeq * a2;
-                    Rs = Req - Rp;
-                    Xs = Xeq - Xp;
+                    Rs =  Rp;
+                    Xs =  Xp;
                 }
                 imagem.setImageResource(R.drawable.tipot);
                 rp.setText(String.format("Rp: %.2f Ω", Rp));
@@ -187,9 +187,9 @@ public class ResultadoTransformador extends AppCompatActivity {
                 break;
             case "L - Circuito em L":
                 if (referencia.equals("Primário")) {
-                    Rp = Req / a2;
-                    Xp = Xeq / a2;
-                    ReqTotal = Rp + Rs;
+                    Rp = Req / 2;
+                    Xp = Xeq / 2;
+                    ReqTotal = Rp * 2;
                     XeqTotal = Xp + Xs;
                 } else if (referencia.equals("Secundário")) {
                     Rp = Req * a2;
