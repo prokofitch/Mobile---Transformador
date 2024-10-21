@@ -35,6 +35,7 @@ public class ResultadoTransformador extends AppCompatActivity {
 
     private TextView reqtotal;
     private TextView xeqtotal;
+    private TextView regulacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,5 +219,16 @@ public class ResultadoTransformador extends AppCompatActivity {
                 break;
         }
 
+        calcularRegulacao(Req, Xeq, vA, iA);
     }
+
+    private void calcularRegulacao(Double Req, Double Xeq, Double Vfl, Double If) {
+        Double Vnl = Vfl + (Req * If + Xeq * If);
+        Double regulacao = ((Vnl - Vfl) / Vfl) * 100;
+
+        TextView regulacaoTextView = findViewById(R.id.regulacao);
+
+        regulacaoTextView.setText(String.format("Regulação: %.2f%%", regulacao));
+    }
+
 }
