@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,77 +100,128 @@ public class ResultadoTransformador extends AppCompatActivity {
     }
 
     @SuppressLint("DefaultLocale")
-    private void calcularParametros(Double n1, Double n2, String tipoCircuito, String referencia, String tipoA, String ladoA, String tipoB, String ladoB, Double vA, Double iA, Double pA, Double vB, Double iB, Double pB){
+    private void calcularParametros(
+            Double n1, Double n2, String tipoCircuito, String referencia,
+            String tipoA, String ladoA, String tipoB, String ladoB,
+            Double vA, Double iA, Double pA, Double vB, Double iB, Double pB
+    ) {
         Double a = n1 / n2;
         Double a2 = a * a;
-        Double Zcc = 0.0, Req = 0.0, Xeq = 0.0, Rc = 0.0, Zphi = 0.0, Xm = 0.0, RcPrime = 0.0, XmPrime = 0.0, IphiPrime = 0.0,
-                Ic = 0.0, Im = 0.0, Rp = 0.0, Xp = 0.0, Rs = 0.0, Xs = 0.0, ReqTotal = 0.0, XeqTotal = 0.0;
 
-        if (tipoA.equals("Curto-Circuito") && ladoA.equals("Baixa Tensão") && tipoB.equals("Circuito Aberto") && ladoB.equals("Alta Tensão")){
-            Zcc = vA / iA;
-            Req = pA / (iA * iA);
-            Xeq = Math.sqrt((Zcc*Zcc)-(Req*Req));
-            Rc = (vB*vB)/pB;
-            Zphi = vB/iB;
-            Xm = 1/(Math.sqrt(1/(Zphi * Zphi) -1/(Rc * Rc)));
+        Double Zcc = 0.0, Req = 0.0, Xeq = 0.0;
+        Double Rc = 0.0, Xm = 0.0, RcPrime = 0.0, XmPrime = 0.0;
+        Double Ic = 0.0, Im = 0.0, IphiPrime = 0.0;
+        Double Zphi = 0.0;
 
-            RcPrime = Rc * a2;
-            XmPrime = Xm * a2;
+        if (tipoA.equals("Circuito Aberto") && ladoA.equals("Alta Tensão") && tipoB.equals("Curto-Circuito") && ladoB.equals("Baixa Tensão")) {
 
-            IphiPrime = iB / a;
-            Ic = n1 / RcPrime;
-            Im = n1 / XmPrime;
+            Ic = pA / vA;
 
-        } else if (tipoA.equals("Circuito Aberto") && ladoA.equals("Baixa Tensão") && tipoB.equals("Curto-Circuito") && ladoB.equals("Alta Tensão")) {
-            Rc = vA * vA / pA;
+            Im = Math.sqrt(iA * iA - Ic * Ic);
+
+            Rc = vA / Ic;
+            Xm = vA / Im;
+
+            IphiPrime = iA;
+
             Zphi = vA / iA;
-            Xm = 1/(Math.sqrt(1/(Zphi * Zphi) -1/(Rc * Rc)));
+
+            Zcc = vB / iB;
+
+            Req = pB / (iB * iB);
+
+            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
+
+            Zcc *= a2;
+            Req *= a2;
+            Xeq *= a2;
+
+            RcPrime = Rc;
+            XmPrime = Xm;
+        } else if (tipoA.equals("Curto-Circuito") && ladoA.equals("Baixa Tensão") && tipoB.equals("Circuito Aberto") && ladoB.equals("Alta Tensão")) {
+
+            Zcc = vA / iA;
+
+            Req = pA / (iA * iA);
+
+            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
+
+            Zcc *= a2;
+            Req *= a2;
+            Xeq *= a2;
+
+            Ic = pB / vB;
+
+            Im = Math.sqrt(iB * iB - Ic * Ic);
+
+            Rc = vB / Ic;
+            Xm = vB / Im;
+
+            IphiPrime = iB;
+
+            Zphi = vB / iB;
+
+            RcPrime = Rc;
+            XmPrime = Xm;
+        } else if (tipoA.equals("Circuito Aberto") && ladoA.equals("Baixa Tensão") && tipoB.equals("Curto-Circuito") && ladoB.equals("Alta Tensão")) {
+            Ic = pA / vA;
+
+            Im = Math.sqrt(iA * iA - Ic * Ic);
+
+            Rc = vA / Ic;
+            Xm = vA / Im;
 
             RcPrime = Rc * a2;
             XmPrime = Xm * a2;
 
             IphiPrime = iA / a;
-            Ic = vA / RcPrime;
-            Im = vA / XmPrime;
 
-            Zcc = vB / iB;
-            Req = pB / (iB * iB);
-            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
-        } else if(tipoA.equals("Curto-Circuito") && ladoA.equals("Alta Tensão") && tipoB.equals("Circuito Aberto") && ladoB.equals("Baixa Tensão")){
-            Zcc = vA / iA;
-            Req = pA / (iA * iA);
-            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
-
-            Rc = vB * vB / pB;
-            Zphi = vB / iB;
-            Xm = Math.sqrt(Zphi * Zphi - Rc * Rc);
-        } else if(tipoA.equals("Circuito Aberto") && ladoA.equals("Alta Tensão") && tipoB.equals("Curto-Circuito") && ladoB.equals("Baixa Tensão")){
-            Rc = vA * vA / pA;
             Zphi = vA / iA;
-            Xm = 1/(Math.sqrt(1/(Zphi * Zphi) -1/(Rc * Rc)));
-
-            RcPrime = Rc * Math.pow(n1 / n2, 2);
-            XmPrime = Xm * Math.pow(n1 / n2, 2);
-
-            IphiPrime = iA * (n2 / n1);
-            Ic = vA / RcPrime;
-            Im = vA / XmPrime;
+            Zphi *= a2;
 
             Zcc = vB / iB;
+
+            // Cálculo de Req e Xeq no primário
             Req = pB / (iB * iB);
             Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
+
+        } else if (tipoA.equals("Curto-Circuito") && ladoA.equals("Alta Tensão") && tipoB.equals("Circuito Aberto") && ladoB.equals("Baixa Tensão")) {
+
+            Zcc = vA / iA;
+
+            Req = pA / (iA * iA);
+
+            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
+
+            Ic = pB / vB;
+
+            Im = Math.sqrt(iB * iB - Ic * Ic);
+
+            Rc = vB / Ic;
+            Xm = vB / Im;
+
+            RcPrime = Rc * a2;
+            XmPrime = Xm * a2;
+
+            IphiPrime = iB / a;
+
+            Zphi = vB / iB;
+            Zphi *= a2;
         }
+
         zcc.setText(String.format("Zcc: %.2f Ω", Zcc));
         req.setText(String.format("Req: %.2f Ω", Req));
         xeq.setText(String.format("Xeq: %.2f Ω", Xeq));
         rc.setText(String.format("Rc: %.2f Ω", Rc));
-        zphi.setText(String.format("Zφ: %.2f Ω", Zphi));
         xm.setText(String.format("Xm: %.2f Ω", Xm));
-        rcp.setText(String.format("Rc' (Referido ao Primário): %.2f kΩ", RcPrime/1000));
-        xmp.setText(String.format("Xm' (Referido ao Primário): %.2f kΩ", XmPrime/1000));
+        rcp.setText(String.format("Rc' (Referido ao Primário): %.2f Ω", RcPrime));
+        xmp.setText(String.format("Xm' (Referido ao Primário): %.2f Ω", XmPrime));
         iphip.setText(String.format("Iφ' (Referido ao Primário): %.2f A", IphiPrime));
-        ic.setText(String.format("Ic: %.2f mA", Ic*1000));
-        im.setText(String.format("Im: %.2f mA", Im*1000));
+        ic.setText(String.format("Ic: %.2f A", Ic));
+        im.setText(String.format("Im: %.2f A", Im));
+        zphi.setText(String.format("Zφ: %.2f Ω", Zphi));
+
+        Double Rp = 0.0, Xp = 0.0, Rs = 0.0, Xs = 0.0, ReqTotal = 0.0, XeqTotal = 0.0;
 
         switch (tipoCircuito) {
             case "T - Circuito em T":
@@ -179,10 +231,10 @@ public class ResultadoTransformador extends AppCompatActivity {
                     Rs = Rp;
                     Xs = Xp;
                 } else if (referencia.equals("Secundário")) {
-                    Rp = Req / a2;
-                    Xp = Xeq / a2;
-                    Rs =  Rp;
-                    Xs =  Xp;
+                    Rp = (Req / 2) / a2;
+                    Xp = (Xeq / 2) / a2;
+                    Rs = Rp;
+                    Xs = Xp;
                 }
                 imagem.setImageResource(R.drawable.tipot);
                 rp.setText(String.format("Rp: %.2f Ω", Rp));
@@ -194,15 +246,15 @@ public class ResultadoTransformador extends AppCompatActivity {
                 break;
             case "L - Circuito em L":
                 if (referencia.equals("Primário")) {
-                    Rp = Req / 2;
-                    Xp = Xeq / 2;
-                    ReqTotal = Rp * 2;
-                    XeqTotal = Xp + Xs;
+                    Rp = Req;
+                    Xp = Xeq;
+                    ReqTotal = Rp;
+                    XeqTotal = Xp + XmPrime;
                 } else if (referencia.equals("Secundário")) {
-                    Rp = Req * a2;
-                    Xp = Xeq * a2;
-                    ReqTotal = Rp + (Req - Rp);
-                    XeqTotal = Xp + (Xeq - Xp);
+                    Rp = Req / a2;
+                    Xp = Xeq / a2;
+                    ReqTotal = Rp;
+                    XeqTotal = Xp + (XmPrime / a2);
                 }
                 imagem.setImageResource(R.drawable.tipol);
                 reqtotal.setText(String.format("Req Total: %.2f Ω", ReqTotal));
@@ -213,9 +265,14 @@ public class ResultadoTransformador extends AppCompatActivity {
                 ((ViewGroup) xs.getParent()).removeView(xs);
                 break;
             case "Série - Circuito em Série":
+                if (referencia.equals("Primário")) {
+                    ReqTotal = Req + RcPrime;
+                    XeqTotal = Xeq + XmPrime;
+                } else if (referencia.equals("Secundário")) {
+                    ReqTotal = (Req / a2) + (RcPrime / a2);
+                    XeqTotal = (Xeq / a2) + (XmPrime / a2);
+                }
                 imagem.setImageResource(R.drawable.serie);
-                ReqTotal = Req + RcPrime / Math.pow(n1 / n2, 2);
-                XeqTotal = Xeq + XmPrime / Math.pow(n1 / n2, 2);
                 reqtotal.setText(String.format("Req Total: %.2f Ω", ReqTotal));
                 xeqtotal.setText(String.format("Xeq Total: %.2f Ω", XeqTotal));
                 ((ViewGroup) rp.getParent()).removeView(rp);
@@ -225,10 +282,14 @@ public class ResultadoTransformador extends AppCompatActivity {
                 break;
         }
 
-        calcularRegulacao(Req, Xeq, vA, iA);
+        Double Vfl = vA;
+        Double If = iA;
+
+        calcularRegulacao(Req, Xeq, Vfl, If);
 
         calcularFasorial(a, vB, Req, iB, Xeq);
     }
+
 
     private void calcularRegulacao(Double Req, Double Xeq, Double Vfl, Double If) {
         Double Vnl = Vfl + (Req * If + Xeq * If);
