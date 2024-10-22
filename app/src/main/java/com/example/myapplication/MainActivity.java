@@ -33,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
         Intent telaDimensoes = new Intent(this, DimensionamentoTransformador.class);
         startActivity(telaDimensoes);
     }
-
+    public void mostrarCurvaDeMagnetizacao(View view) {
+        Intent intent = new Intent(this, CurvaDeMagnetizacaoActivity.class);
+        startActivity(intent);
+    }
 }
 
 
