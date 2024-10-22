@@ -138,31 +138,22 @@ public class ResultadoTransformador extends AppCompatActivity {
 
             RcPrime = Rc;
             XmPrime = Xm;
+
         } else if (tipoA.equals("Curto-Circuito") && ladoA.equals("Baixa Tensão") && tipoB.equals("Circuito Aberto") && ladoB.equals("Alta Tensão")) {
 
             Zcc = vA / iA;
-
             Req = pA / (iA * iA);
+            Xeq = Math.sqrt((Zcc*Zcc)-(Req*Req));
+            Rc = (vB*vB)/pB;
+            Zphi = vB/iB;
+            Xm = 1/(Math.sqrt(1/(Zphi * Zphi) -1/(Rc * Rc)));
 
-            Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
+            RcPrime = Rc * a2;
+            XmPrime = Xm * a2;
 
-            Zcc *= a2;
-            Req *= a2;
-            Xeq *= a2;
-
-            Ic = pB / vB;
-
-            Im = Math.sqrt(iB * iB - Ic * Ic);
-
-            Rc = vB / Ic;
-            Xm = vB / Im;
-
-            IphiPrime = iB;
-
-            Zphi = vB / iB;
-
-            RcPrime = Rc;
-            XmPrime = Xm;
+            IphiPrime = iB / a;
+            Ic = n1 / RcPrime;
+            Im = n1 / XmPrime;
         } else if (tipoA.equals("Circuito Aberto") && ladoA.equals("Baixa Tensão") && tipoB.equals("Curto-Circuito") && ladoB.equals("Alta Tensão")) {
             Ic = pA / vA;
 
@@ -181,7 +172,6 @@ public class ResultadoTransformador extends AppCompatActivity {
 
             Zcc = vB / iB;
 
-            // Cálculo de Req e Xeq no primário
             Req = pB / (iB * iB);
             Xeq = Math.sqrt(Zcc * Zcc - Req * Req);
 
