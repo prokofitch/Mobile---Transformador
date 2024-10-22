@@ -179,6 +179,34 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="normal" />
+
+            <!-- Linha Divisória -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+            
+            <TextView
+                android:id="@+id/titulo_regulacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Regulação de Tensão"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/regulacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Regulação: --%"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
         </LinearLayout>
     </ScrollView>
 
