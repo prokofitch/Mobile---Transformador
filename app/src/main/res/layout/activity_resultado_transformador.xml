@@ -207,6 +207,21 @@
                 android:textSize="20sp"
                 android:textStyle="normal" />
 
+            <!-- O gráfico do diagrama fasorial -->
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/fasorial_graph"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+
+            <!-- Resultado texto -->
+            <TextView
+                android:id="@+id/fasorial_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resultado do Fasorial"
+                android:textSize="16sp"
+                android:paddingTop="16dp"/>
+
         </LinearLayout>
     </ScrollView>
 
