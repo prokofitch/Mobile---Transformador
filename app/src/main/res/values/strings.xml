@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Transformador</string>
     <string name="resultados">Resultados</string>
+    <string-array name="frequency_array">
+        <item>50</item>
+        <item>60</item>
+    </string-array>
 </resources>
