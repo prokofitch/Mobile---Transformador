@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".RegulacaoTransformadorActivity"
+            android:exported="false" />
+        <activity
             android:name=".CurvaDeMagnetizacaoActivity"
             android:exported="false" />
         <activity
@@ -24,9 +27,7 @@
         <activity
             android:name=".DimensionamentoTransformador"
             android:exported="false" />
-        <activity 
-            android:name=".ResultadosCurvaMagnetizacao"
-            />
+        <activity android:name=".ResultadosCurvaMagnetizacao" />
         <activity
             android:name=".ResultadoTransformador"
             android:exported="false" />

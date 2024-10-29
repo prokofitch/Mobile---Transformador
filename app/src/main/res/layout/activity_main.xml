@@ -41,6 +41,14 @@
         android:onClick="mostrarCurvaDeMagnetizacao"
         android:text="Curva de Magnetização" />
 
+    <Button
+        android:id="@+id/regulacaoTransformador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:onClick="regulacaoTransformador"
+        android:text="Regulação do transformador" />
+
     <LinearLayout
         android:id="@+id/layout_grafico"
         android:layout_width="match_parent"
